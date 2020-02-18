@@ -22,7 +22,7 @@ def random_string_generator(size=5,  chars=string.ascii_uppercase + string.digit
 @login_required
 def get_order():
     OrdersItems = db.session.query(Orders).all()
-    return render_template('orders.html')
+    return render_template('orders.html', OrdersItems = OrdersItems)
 
 # add new order
 @orders.route('/order/new', methods=['POST', 'GET'])

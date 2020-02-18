@@ -126,9 +126,6 @@ class Situation(db.Model):
 class Orders(db.Model):
     IdOrder = db.Column(db.Integer, primary_key=True)
     OrderNumber = db.Column(db.String(250), nullable=True)
-    BusinesName = db.Column(db.String(250), nullable=True)
-    PhoneNumber = db.Column(db.String(250), nullable=True)
-    Address = db.Column(db.String(250),  nullable=True)
     IdBusines = db.Column(db.Integer, db.ForeignKey('business.IdBusines'))
     # IdCrop = db.Column(db.Integer, db.ForeignKey('crop.IdCrop'))
     # IdQty = db.Column(db.Integer, db.ForeignKey('quantity.IdQty'))
@@ -142,7 +139,7 @@ class Orders(db.Model):
     business = db.relationship("Business", backref="Orders") 
 
     def __repr__(self) :
-        return f"Orders('{self.IdOrder}',{self.OrderNumber}','{self.BusinesName}','{self.PhoneNumber}','{self.Address}','{self.IdBusines}','{self.IdCrop}','{self.IdQty}','{self.IdOrderStatus}','{self.Price}','{self.Ordertime}','{self.CreatedAt}')"        
+        return f"Orders('{self.IdOrder}',{self.OrderNumber}','{self.IdBusines}','{self.IdCrop}','{self.IdQty}','{self.IdOrderStatus}','{self.Price}','{self.Ordertime}','{self.CreatedAt}')"        
 
 class OrderStatus(db.Model):
     IdOrderStatus = db.Column(db.Integer, primary_key=True)

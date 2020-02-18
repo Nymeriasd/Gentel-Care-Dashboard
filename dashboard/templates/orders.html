@@ -23,11 +23,11 @@
           <thead>
             <tr>
               <th>Order Number</th>
-              <th>Business Name</th>
+              <th>Customer Name</th>
               <th>Phone Number</th>
               <th>Address</th>
-              <th>Crop</th>
-              <th>Qty</th>
+              <th>Services</th>
+              <th>Selected Date</th>
               <th>Price</th>
               <th>Status</th>
               <th>OrderdAt</th>
@@ -43,40 +43,31 @@
                         </tr>
                       </tfoot> -->
           <tbody>
-            {% for item in OrdersItems %}
             <tr>
-              <td>{{ item.OrderNumber }}</td>
-              {%if item.business.BusinesName %}
-              <td>{{ item.business.BusinesName }}</td>
-              {% else %}
-              <td>{{ item.BusinesName }}</td>
-              {% endif %}
-              {% if item.business.PhoneNumber  %}
-              <td>{{ item.business.PhoneNumber }}</td>
-              {% else %}
-              <td>{{ item.PhoneNumber }}</td>
-              {% endif %}
-              <td>{{ item.business.Address }}</td>
-              <td>{{ item.crop.Name }}</td>
-              <td>{{ item.qty.Qty }}</td>
-              <td>{{ item.Price }}</td>
-              <td>{{ item.orderstatus.OrderStatus }}</td>
-              <td>{{ item.Ordertime }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-                  data-target="#editModal{{ item.IdOrder }}"><i class="fas fa-edit fa-sm text-white-50"></i>
+                  data-target="#editModal"><i class="fas fa-edit fa-sm text-white-50"></i>
                   Edit </a>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-                  data-target="#editStatusModal{{ item.IdOrder }}"><i class="fas fa-edit fa-sm text-white-50"></i>
+                  data-target="#editStatusModal"><i class="fas fa-edit fa-sm text-white-50"></i>
                   Edit Status </a>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-                  data-target="#deleteModal{{ item.IdOrder }}"><i class="fas fa-trash-alt fa-sm text-white-50"></i>
+                  data-target="#deleteModal"><i class="fas fa-trash-alt fa-sm text-white-50"></i>
                   Delete </a>
               </td>
             </tr>
 
             <!-- edit Modal-->
-            <div class="modal fade" id="editModal{{ item.IdOrder }}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
               aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -87,36 +78,30 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="{{url_for('orders.edit_order', IdOrder = item.IdOrder )}}" method="POST">
+                    <form action="" method="POST">
                       <div class="form-row">
                         <div class="form-group col-md-12">
                           <label for="exampleFormControlSelect1">Choose Business :</label>
                           <select class="form-control" id="exampleFormControlSelect1" name="BusinesName">
-                            {% for item in BusinesaItems %}
-                            <option value="{{ item.IdBusines }}">{{ item.BusinesName }}</option>
-                            {% endfor %}
+                            <option value=""></option>
                           </select>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Choose crop :</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="Crop">
-                          {% for crop in CropItems %}
-                          <option value="{{ crop.IdCrop }}">{{ crop.Name }}</option>
-                          {% endfor %}
+                          <option value=""></option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Choose Quantity :</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="Qty">
-                          {% for item in QuantityItems %}
-                          <option value="{{ item.IdQty }}">{{ item.Qty }}</option>
-                          {% endfor %}
+                          <option value=""></option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="inputAddress">Price :</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="{{ item.Price }}"
+                        <input type="text" class="form-control" id="inputAddress" placeholder=""
                           name="Price">
                       </div>
                       <div class="form-group">
@@ -135,7 +120,7 @@
 
 
             <!-- edit Modal-->
-            <div class="modal fade" id="editStatusModal{{ item.IdOrder }}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="" tabindex="-1" role="dialog"
               aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -146,13 +131,11 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="{{url_for('orders.edit_status_order', IdOrder = item.IdOrder )}}" method="POST">
+                    <form action="" method="POST">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Edit Status :</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="OrderStatusName">
-                          {% for item in OrderStatusItems %}
-                          <option value="{{ item.IdOrderStatus }}">{{ item.OrderStatus }}</option>
-                          {% endfor %}
+                          <option value=""></option>
                         </select>
                       </div>
                   </div>
@@ -170,7 +153,7 @@
 
 
             <!-- delete Modal-->
-            <div class="modal fade" id="deleteModal{{ item.IdOrder }}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="" tabindex="-1" role="dialog"
               aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -180,15 +163,14 @@
                       <span aria-hidden="true">×</span>
                     </button>
                   </div>
-                  <div class="modal-body">Are you sure you want to delete {{ item.OrderNumber }} ?</div>
+                  <div class="modal-body">Are you sure you want to delete  ?</div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{url_for('orders.delete_order', IdOrder = item.IdOrder )}}">Delete</a>
+                    <a class="btn btn-primary" href="">Delete</a>
                   </div>
                 </div>
               </div>
             </div>
-            {% endfor %}
           </tbody>
         </table>
       </div>
@@ -219,47 +201,45 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{url_for('orders.add_order')}}" method="POST">
+        <form action="" method="POST">
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="exampleFormControlSelect1">Choose Business :</label>
-              <select class="form-control" id="exampleFormControlSelect1" name="BusinesName">
-                {% for item in BusinesaItems %}
-                <option value="{{ item.IdBusines }}">{{ item.BusinesName }}</option>
-                {% endfor %}
-              </select>
+              <label for="exampleFormControlSelect1">Customer Name:</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer name " name="CustomerName">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="exampleFormControlSelect1">Customer Phone Number:</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Phone " name="CustomerPhone">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="exampleFormControlSelect1">Customer Address :</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Address " name="CustomerAddress">
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose crop :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Crop">
-              {% for crop in CropItems %}
-              <option value="{{ crop.IdCrop }}">{{ crop.Name }}</option>
-              {% endfor %}
+            <label for="exampleFormControlSelect1">Choose Services :</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="Services">
+              <option value=""></option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Quantity :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Qty">
-              {% for item in QuantityItems %}
-              <option value="{{ item.IdQty }}">{{ item.Qty }}</option>
-              {% endfor %}
+            <label for="exampleFormControlSelect1">Choose Agent :</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="Agent">
+              <option value=""></option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Choose Order Status :</label>
             <select class="form-control" id="exampleFormControlSelect1" name="OrderStatus">
-              {% for status in OrderStatusItems %}
-              <option value="{{ status.IdOrderStatus }}">{{ status.OrderStatus }}</option>
-              {% endfor %}
+              <option value=""></option>
             </select>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="inputAddress">Price :</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Insert Price" name="Price">
-          </div>
+          </div> -->
           <div class="form-group">
-            <label for="inputAddress2">Order Time :</label>
+            <label for="inputAddress2">Selected Date :</label>
             <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
           </div>
       </div>
