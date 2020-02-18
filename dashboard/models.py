@@ -79,7 +79,7 @@ class Farmer(db.Model):
     CreatedAt = db.Column(db.DateTime, nullable=False) 
 
     def __repr__(self) :
-        return f"Farmer('{self.Idfarmer}',{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Address}','{self.IdCrop}','{self.Harvestime}','{self.CreatedAt}')"        
+        return f"Farmer('{self.Idfarmer}',{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Address}','{self.Harvestime}','{self.CreatedAt}')"        
 
 
 

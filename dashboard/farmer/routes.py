@@ -11,16 +11,14 @@ Sassy = Markup('<span>&#128540;</span>')
 
 
 # get all farmers
-@farmer.route('/farmer', methods=['POST','GET'])
+@farmer.route('/customer', methods=['POST','GET'])
 @login_required
 def get_farmer():
     FarmerItems = db.session.query(Farmer).all()
-    CropItems = db.session.query(Crop).filter_by(Enabled = 1).all()
-
-    return render_template('farmers.html', FarmerItems = FarmerItems, CropItems = CropItems)
+    return render_template('farmers.html', FarmerItems = FarmerItems)
 
 # add new farmer
-@farmer.route('/farmer/new', methods=['POST','GET'])
+@farmer.route('/customer/new', methods=['POST','GET'])
 @login_required
 def add_farmer():
     if request.method == 'POST':
@@ -28,16 +26,16 @@ def add_farmer():
         try :
             db.session.add(NewFarmer)
             db.session.commit()
-            flash('Yes !! Farmer inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
+            flash('Yes !! Customer inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
             return redirect(url_for('farmer.get_farmer'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Farmer did not insert successfully . Please check insertion ', 'danger')
+            flash('No !! ' + Sad + ' Customer did not insert successfully . Please check insertion ', 'danger')
           
     return redirect(url_for('farmer.get_farmer'))
 
 
 # edit farmer
-@farmer.route('/farmer/<int:Idfarmer>/edit', methods=['POST','GET'])
+@farmer.route('/customer/<int:Idfarmer>/edit', methods=['POST','GET'])
 @login_required
 def edit_farmer(Idfarmer):
     if request.method == 'POST' :
@@ -51,16 +49,16 @@ def edit_farmer(Idfarmer):
         try :
             db.session.add(EditFarmer)
             db.session.commit()
-            flash('Yes !! Farmer is edited successfully '+ Happy , 'success')
+            flash('Yes !! Customer is edited successfully '+ Happy , 'success')
             return redirect(url_for('farmer.get_farmer'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Farmer did not edit successfully . Please check insertion ' , 'danger')
+            flash('No !! ' + Sad + ' Customer did not edit successfully . Please check insertion ' , 'danger')
           
     return redirect(url_for('farmer.get_farmer'))
 
 
 # delete farmer
-@farmer.route('/farmer/<int:Idfarmer>/delete', methods=['POST', 'GET'])
+@farmer.route('/customer/<int:Idfarmer>/delete', methods=['POST', 'GET'])
 @login_required
 def delete_farmer(Idfarmer):
     if request.method == 'GET' :
@@ -68,7 +66,7 @@ def delete_farmer(Idfarmer):
         try :
             db.session.delete(DeleteFarmer)
             db.session.commit()
-            flash('Yes !! Farmer is deleted successfully '+ Happy , 'success')
+            flash('Yes !! Customer is deleted successfully '+ Happy , 'success')
             return redirect(url_for('farmer.get_farmer'))
         except Exception as err :
             flash('NA NA NA you can delete me. Try again ' + Sassy  , 'danger')

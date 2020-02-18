@@ -15,7 +15,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-        data-target="#insertModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Farmer</a>
+        data-target="#insertModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Customer</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -25,11 +25,11 @@
               <th>Id</th>
               <th>First Name</th>
               <th>Last Name</th>
-              <!-- <th>Password</th> -->
+              <th>Email</th>
               <th>Phone Number</th>
               <th>Address</th>
-              <th>Crop</th>
-              <th>Harvest Date</th>
+              <!-- <th>Crop</th> -->
+              <!-- <th>Harvest Date</th> -->
               <th>CreatedAt</th>
               <th>Action</th>
             </tr>
@@ -48,11 +48,11 @@
               <td>{{ item.Idfarmer }}</td>
               <td>{{ item.FirstName }}</td>
               <td>{{ item.LastName }}</td>
-              <!-- <td>ahmed@12345</td> -->
+              <td></td>
               <td>{{ item.PhoneNumber }}</td>
               <td>{{ item.Address }}</td>
-              <td>{{ item.crop.Name }}</td>
-              <td>{{ item.Harvestime }}</td>
+              <td></td>
+              <!-- <td>{{ item.Harvestime }}</td> -->
               <td>{{ item.CreatedAt }}</td>
               <td>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
@@ -71,7 +71,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit farmer</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
@@ -166,7 +166,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insert farmer</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Insert Customer</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -188,17 +188,14 @@
             <input type="text" class="form-control" id="inputAddress" placeholder="Phone number" name="PhoneNumber">
           </div>
           <div class="form-group">
-            <label for="inputAddress2">Address :</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"
+            <label for="inputAddress2">Email :</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Email "
               name="Address">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose crop :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Crop">
-              {% for crop in CropItems %}
-              <option value="{{ crop.IdCrop }}">{{ crop.Name}}</option>
-              {% endfor %}
-            </select>
+            <label for="inputAddress2">Address :</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"
+              name="Address">
           </div>
           <div class="form-group">
             <label for="inputAddress2">Harvest time :</label>

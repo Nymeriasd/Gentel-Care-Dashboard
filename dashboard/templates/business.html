@@ -28,7 +28,7 @@
               <th>Service</th>
               <!-- <th>Password</th> -->
               <th>Phone Number</th>
-              <th>Business Name</th>
+              <!-- <th>Business Name</th> -->
               <th>Address</th>
               <th>Availability time</th>
               <th>Action</th>
@@ -158,7 +158,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insert business</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Insert Agent</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -176,21 +176,22 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="inputAddress">Email :</label>
-            <input type="email" class="form-control" id="inputAddress" placeholder="Email" name="Email">
+            <label for="inputAddress">Service :</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="OrderStatus">
+              <option value=""></option>
+            </select>
           </div>
           <div class="form-group">
             <label for="inputAddress2">Phone number :</label>
             <input type="text" class="form-control" id="inputAddress2" placeholder="Phone number" name="PhoneNumber">
           </div>
           <div class="form-group">
-            <label for="inputAddress2">Business name :</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Business name" name="BusinesName">
+            <label for="inputAddress2">Address :</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="BusinesName">
           </div>
           <div class="form-group">
-            <label for="inputAddress2">Address </label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"
-              name="Address">
+            <label for="inputAddress2">Availability Date : </label>
+            <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
           </div>
       </div>
       <div class="modal-footer">
