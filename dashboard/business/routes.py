@@ -12,14 +12,14 @@ Sassy = Markup('<span>&#128540;</span>')
 
 
 # get all business
-@business.route('/business', methods=['POST', 'GET'])
+@business.route('/agent', methods=['POST', 'GET'])
 @login_required
 def get_business():
     BusinessItems = db.session.query(Business).all()
     return render_template('business.html', BusinessItems = BusinessItems)
 
 # add Business
-@business.route('/business/new', methods=['POST', 'GET'])
+@business.route('/agent/new', methods=['POST', 'GET'])
 @login_required
 def add_business():
     if request.method == 'POST' :
@@ -27,15 +27,15 @@ def add_business():
         try :
             db.session.add(NewBusiness)
             db.session.commit()
-            flash('Yes !! Business inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
+            flash('Yes !! Agent inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
             return redirect(url_for('business.get_business'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Business did not insert successfully . Please check insertion ', 'danger')
+            flash('No !! ' + Sad + ' Agent did not insert successfully . Please check insertion ', 'danger')
         
     return redirect(url_for('business.get_business'))
 
 # edit business
-@business.route('/business/<int:IdBusines>/edit', methods=['POST', 'GET'])
+@business.route('/agent/<int:IdBusines>/edit', methods=['POST', 'GET'])
 @login_required
 def edit_busines(IdBusines):
     if request.method == 'POST':
@@ -49,17 +49,17 @@ def edit_busines(IdBusines):
         try :
             db.session.add(EditBusiness)
             db.session.commit()
-            flash('Yes !! Business is edited successfully '+ Happy , 'success')
+            flash('Yes !! Agent is edited successfully '+ Happy , 'success')
             return redirect(url_for('business.get_business'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Business did not edit successfully . Please check insertion ' , 'danger')
+            flash('No !! ' + Sad + ' Agent did not edit successfully . Please check insertion ' , 'danger')
         
     return redirect(url_for('business.get_business'))
 
         
 
 # delete Business
-@business.route('/business/<int:IdBusines>/delete', methods=['POST', 'GET'])
+@business.route('/agent/<int:IdBusines>/delete', methods=['POST', 'GET'])
 @login_required
 def delete_business(IdBusines):
     if request.method == 'GET':
@@ -67,7 +67,7 @@ def delete_business(IdBusines):
         try :
             db.session.delete(DeleteBusines)
             db.session.commit()
-            flash('Yes !! Business is deleted successfully '+ Happy , 'success')
+            flash('Yes !! Agent is deleted successfully '+ Happy , 'success')
             return redirect(url_for('business.get_business'))
         except Exception as err :
             flash('NA NA NA you can delete me. Try again ' + Sassy  , 'danger')
