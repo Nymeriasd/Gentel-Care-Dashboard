@@ -22,7 +22,7 @@ def get_service():
 @login_required
 def add_service():
     if request.method == 'POST':
-        NewService = Service(Name = request.form['ServiceName'], Enabled= request.form['Status'])
+        NewService = Service(Name = request.form['ServiceName'], Price = request.form['Price'] , Enabled= request.form['Status'])
         try :
             db.session.add(NewService)
             db.session.commit()
@@ -40,9 +40,10 @@ def edit_service(IdService):
     if request.method == 'POST':
         EditService = db.session.query(Service).filter_by(IdService = IdService).one()
         EditService.Name = request.form['ServiceName']
+        EditService.Price = request.form['Price']
         EditService.Enabled = request.form['Status']
         try :
-            db.session.add(EditMarket)
+            db.session.add(EditService)
             db.session.commit()
             flash('Yes !! Service is edited successfully '+ Happy , 'success')
             return redirect(url_for('services.get_service'))
