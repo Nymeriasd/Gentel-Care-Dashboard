@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Business, Price, Situation, Orders, OrderStatus
+from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 import random
@@ -21,7 +21,7 @@ def random_string_generator(size=5,  chars=string.ascii_uppercase + string.digit
 @orders.route('/order', methods=['POST', 'GET'])
 @login_required
 def get_order():
-    OrdersItems = db.session.query(Orders).all()
+    OrdersItems = db.session.query(OrdersMaintenance).all()
     return render_template('orders.html', OrdersItems = OrdersItems)
 
 # add new order
@@ -29,7 +29,7 @@ def get_order():
 @login_required
 def add_order():
     if request.method == 'POST':
-        NewOrder = Orders(OrderNumber = "O"+random_string_generator(), BusinesName = '', PhoneNumber = '', Address = '', IdBusines = request.form['BusinesName'], IdCrop = request.form['Crop'], IdQty = request.form['Qty'], IdOrderStatus = request.form['OrderStatus'], Price = request.form['Price'], Ordertime = request.form['Ordertime'])
+        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), BusinesName = '', PhoneNumber = '', Address = '', IdBusines = request.form['BusinesName'], IdCrop = request.form['Crop'], IdQty = request.form['Qty'], IdOrderStatus = request.form['OrderStatus'], Price = request.form['Price'], Ordertime = request.form['Ordertime'])
         try :
             db.session.add(NewOrder)
             db.session.commit()
@@ -46,7 +46,7 @@ def add_order():
 @login_required
 def edit_order(IdOrder):
     if request.method == 'POST':
-        EditOrder = db.session.query(Orders).filter_by(IdOrder = IdOrder).one()
+        EditOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
         EditOrder.BusinesName = request.form['BusinesName']
         EditOrder.IdCrop  = request.form['Crop']
         EditOrder.Ordertime = request.form['Ordertime']
@@ -68,7 +68,7 @@ def edit_order(IdOrder):
 @login_required
 def edit_status_order(IdOrder):
     if request.method == 'POST':
-        EditOrder = db.session.query(Orders).filter_by(IdOrder = IdOrder).one()
+        EditOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
         EditOrder.IdOrderStatus = request.form['OrderStatusName']
        
         try :

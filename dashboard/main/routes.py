@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Business, Price, Situation, Orders, OrderStatus
+from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 
@@ -26,7 +26,12 @@ def login():
 @main.route('/index', methods=['POST','GET'])
 @login_required
 def index():
-    return render_template('index.html')
+    OrdersNumbers  = db.session.query(OrdersMaintenance).count()
+    BusinessNumbers = db.session.query(Business).count()
+    ServiceNumbers = db.session.query(Service).count()
+    UsersNumbers = db.session.query(Users).count()
+    return render_template('index.html', OrdersNumbers = OrdersNumbers, BusinessNumbers = BusinessNumbers, ServiceNumbers = ServiceNumbers, UsersNumbers = UsersNumbers)
+    
 # logout route
 @main.route('/logout')
 def logout():
