@@ -32,10 +32,8 @@ def get_order():
 @login_required
 def add_order():
     if request.method == 'POST':
-        Service.Price = db.session.query(Service).filter(Service.IdService == request.form['Services']).one()
-        print(Service.Price)
-        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = 900, Comment = request.form['comment'], Time = request.form['Time'])
-        print(NewOrder)
+        GetService = db.session.query(Service).filter(Service.IdService == request.form['Services']).one()
+        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = GetService.Price, Comment = request.form['comment'], Time = request.form['Time'])
         try :
             db.session.add(NewOrder)
             db.session.commit()
