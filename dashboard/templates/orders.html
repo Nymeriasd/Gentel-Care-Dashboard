@@ -216,8 +216,12 @@
         <form action="" method="POST">
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="exampleFormControlSelect1">Customer Name:</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer name " name="CustomerName">
+              <label for="exampleFormControlSelect1">First Name:</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert First name " name="CustomerFirstName">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="exampleFormControlSelect1">Last Name:</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Last name " name="CustomerLastName">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">Customer Phone Number:</label>
@@ -235,25 +239,23 @@
           <div class="form-group">
             <label for="exampleFormControlSelect1">Choose Services :</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Services">
-              <option value=""></option>
+              {% for item in ServiceItems %}
+              <option value="{{ item.IdService }}">{{ item.Name }}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Choose Priority  :</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Priority">
-              <option value=""></option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Agent :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Agent">
-              <option value=""></option>
+              {% for item in PriorityItems %}
+              <option value="{{ item.IdPriority }}">{{ item.PriorityName }}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Choose Time :</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Time">
-              <option value=""></option>
+              <option value="Flexible">Flexible</option>
             </select>
           </div>
           <!-- <div class="form-group">
@@ -265,6 +267,10 @@
             <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
           </div>
       </div>
+        <div class="col-sm-12">
+          <label>Any special instructions or additional details ?</label>
+          <textarea id="comment" name="comment" rows="3" cols="40" class="form-control"></textarea>
+        </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
         <button class="btn btn-primary" type="submit">Submit</button>

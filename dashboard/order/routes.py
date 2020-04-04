@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus
+from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus, Priority
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 import random
@@ -22,15 +22,20 @@ def random_string_generator(size=5,  chars=string.ascii_uppercase + string.digit
 @login_required
 def get_order():
     OrdersItems = db.session.query(OrdersMaintenance).all()
+    ServiceItems = db.session.query(Service).all()
     OrderStatusItems = db.session.query(OrderStatus).all()
-    return render_template('orders.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems)
+    PriorityItems = db.session.query(Priority).all()
+    return render_template('orders.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems, ServiceItems = ServiceItems, PriorityItems = PriorityItems)
 
 # add new order
 @orders.route('/order/new', methods=['POST', 'GET'])
 @login_required
 def add_order():
     if request.method == 'POST':
-        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = request.form['Price'])
+        Service.Price = db.session.query(Service).filter(Service.IdService == request.form['Services']).one()
+        print(Service.Price)
+        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = 900, Comment = request.form['comment'], Time = request.form['Time'])
+        print(NewOrder)
         try :
             db.session.add(NewOrder)
             db.session.commit()
