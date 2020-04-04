@@ -22,7 +22,8 @@ def random_string_generator(size=5,  chars=string.ascii_uppercase + string.digit
 @login_required
 def get_order():
     OrdersItems = db.session.query(OrdersMaintenance).all()
-    return render_template('orders.html', OrdersItems = OrdersItems)
+    OrderStatusItems = db.session.query(OrderStatus).all()
+    return render_template('orders.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems)
 
 # add new order
 @orders.route('/order/new', methods=['POST', 'GET'])
@@ -87,7 +88,7 @@ def edit_status_order(IdOrder):
 @login_required
 def delete_order(IdOrder):
     if request.method == 'GET':
-        DeleteOrder = db.session.query(Orders).filter_by(IdOrder = IdOrder).one()
+        DeleteOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
         try :
             db.session.delete(DeleteOrder)
             db.session.commit()

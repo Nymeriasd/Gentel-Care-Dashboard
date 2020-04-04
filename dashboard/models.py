@@ -148,6 +148,7 @@ class OrdersMaintenance(db.Model):
 
     service = db.relationship("Service", backref="OrdersMaintenance")
     priority = db.relationship("Priority", backref="OrdersMaintenance") 
+    status = db.relationship("OrderStatus", backref="OrdersMaintenance") 
 
     def __repr__(self) :
         return f"OrdersMaintenance('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.IdService}','{self.Price}','{self.IdPriority}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.Comment}')"        
