@@ -51,11 +51,18 @@ def add_order():
 def edit_order(IdOrder):
     if request.method == 'POST':
         EditOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
-        EditOrder.BusinesName = request.form['BusinesName']
-        EditOrder.IdCrop  = request.form['Crop']
-        EditOrder.Ordertime = request.form['Ordertime']
-        EditOrder.IdQty = request.form['Qty']
-        EditOrder.Price  = request.form['Price']
+        EditOrder.FirstName = request.form['CustomerFirstName']
+        EditOrder.FirstName  = request.form['CustomerLastName']
+        EditOrder.PhoneNumber = request.form['CustomerPhone']
+        EditOrder.Address = request.form['CustomerAddress']
+        EditOrder.Email  = request.form['CustomerEmail']
+        EditOrder.IdService  = request.form['Services']
+        GetService = db.session.query(Service).filter(Service.IdService == EditOrder.IdService).one()
+        EditOrder.IdPriority  = request.form['Priority']
+        EditOrder.Ordertime  = request.form['Ordertime']
+        EditOrder.Price  = GetService.Price
+        EditOrder.Comment  = request.form['comment']
+        EditOrder.Time  = request.form['Time']
         try :
             db.session.add(EditOrder)
             db.session.commit()

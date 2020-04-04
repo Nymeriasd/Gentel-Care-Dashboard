@@ -67,68 +67,87 @@
               </td>
             </tr>
 
+
+
             <!-- edit Modal-->
             <div class="modal fade" id="editModal{{ item.IdOrder }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Maintenance Order</h5>
-                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="" method="POST">
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <label for="exampleFormControlSelect1">Customer Name:</label>
-                        <input type="text" class="form-control" id="inputAddress" value="{{ item.FirstName }}" name="CustomerName">
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Maintenance Order</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{url_for('orders.edit_order', IdOrder = item.IdOrder )}}" method="POST">
+                      <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlSelect1">First Name:</label>
+                          <input type="text" class="form-control" id="inputAddress" value="{{ item.FirstName }}"
+                            name="CustomerFirstName">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlSelect1">Last Name:</label>
+                          <input type="text" class="form-control" id="inputAddress" value="{{ item.LastName }}"
+                            name="CustomerLastName">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlSelect1">Customer Phone Number:</label>
+                          <input type="text" class="form-control" id="inputAddress" value="{{ item.PhoneNumber }}"
+                            name="CustomerPhone">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlSelect1">Customer Address :</label>
+                          <input type="text" class="form-control" id="inputAddress"
+                            value="{{ item.Address }}" name="CustomerAddress">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlSelect1">Customer Email :</label>
+                          <input type="text" class="form-control" id="inputAddress" value="{{ item.Email }}"
+                            name="CustomerEmail">
+                        </div>
                       </div>
-                      <div class="form-group col-md-12">
-                        <label for="exampleFormControlSelect1">Customer Phone Number:</label>
-                        <input type="text" class="form-control" id="inputAddress" value="{{ item.PhoneNumber }}" name="CustomerPhone">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Choose Services :</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="Services">
+                          {% for item in ServiceItems %}
+                          <option value="{{ item.IdService }}">{{ item.Name }}</option>
+                          {% endfor %}
+                        </select>
                       </div>
-                      <div class="form-group col-md-12">
-                        <label for="exampleFormControlSelect1">Customer Address :</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="{{ item.Address }}" name="CustomerAddress">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Choose Priority :</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="Priority">
+                          {% for item in PriorityItems %}
+                          <option value="{{ item.IdPriority }}">{{ item.PriorityName }}</option>
+                          {% endfor %}
+                        </select>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Choose Services :</label>
-                      <select class="form-control" id="exampleFormControlSelect1" name="Services">
-                        <option value=""></option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect1">Choose Agent :</label>
-                      <select class="form-control" id="exampleFormControlSelect1" name="Agent">
-                        <option value=""></option>
-                      </select>
-                    </div>
-                    <!-- <div class="form-group">
-                      <label for="exampleFormControlSelect1">Choose Order Status :</label>
-                      <select class="form-control" id="exampleFormControlSelect1" name="OrderStatus">
-                        <option value=""></option>
-                      </select>
-                    </div> -->
-                    <!-- <div class="form-group">
-                      <label for="inputAddress">Price :</label>
-                      <input type="text" class="form-control" id="inputAddress" placeholder="Insert Price" name="Price">
-                    </div> -->
-                    <div class="form-group">
-                      <label for="inputAddress2">Selected Date :</label>
-                      <input type="date" class="form-control" id="inputAddress2" name="Ordertime" value="{{ item.Ordertime }}">
-                    </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Choose Time :</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="Time">
+                          <option value="Flexible">Flexible</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputAddress2">Selected Date :</label>
+                        <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
+                      </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <label>Any special instructions or additional details ?</label>
+                    <textarea id="comment" name="comment" rows="3" cols="40" class="form-control"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                  </form>
                 </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <button class="btn btn-primary" type="submit">Submit</button>
-                </div>
-                </form>
               </div>
             </div>
-          </div>
 
 
             <!-- edit Status Modal-->
@@ -177,7 +196,8 @@
                   <div class="modal-body">Are you sure you want to delete {{ item.OrderNumber }} ?</div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{url_for('orders.delete_order', IdOrder = item.IdOrder )}}">Delete</a>
+                    <a class="btn btn-primary"
+                      href="{{url_for('orders.delete_order', IdOrder = item.IdOrder )}}">Delete</a>
                   </div>
                 </div>
               </div>
@@ -213,23 +233,28 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">First Name:</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert First name " name="CustomerFirstName">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert First name "
+                name="CustomerFirstName">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">Last Name:</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Last name " name="CustomerLastName">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Last name "
+                name="CustomerLastName">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">Customer Phone Number:</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Phone " name="CustomerPhone">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Phone "
+                name="CustomerPhone">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">Customer Address :</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Address " name="CustomerAddress">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Address "
+                name="CustomerAddress">
             </div>
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">Customer Email :</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Email " name="CustomerEmail">
+              <input type="text" class="form-control" id="inputAddress" placeholder="Insert Customer Email "
+                name="CustomerEmail">
             </div>
           </div>
           <div class="form-group">
@@ -241,7 +266,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Priority  :</label>
+            <label for="exampleFormControlSelect1">Choose Priority :</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Priority">
               {% for item in PriorityItems %}
               <option value="{{ item.IdPriority }}">{{ item.PriorityName }}</option>
@@ -254,19 +279,15 @@
               <option value="Flexible">Flexible</option>
             </select>
           </div>
-          <!-- <div class="form-group">
-            <label for="inputAddress">Price :</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Insert Price" name="Price">
-          </div> -->
           <div class="form-group">
             <label for="inputAddress2">Selected Date :</label>
             <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
           </div>
       </div>
-        <div class="col-sm-12">
-          <label>Any special instructions or additional details ?</label>
-          <textarea id="comment" name="comment" rows="3" cols="40" class="form-control"></textarea>
-        </div>
+      <div class="col-sm-12">
+        <label>Any special instructions or additional details ?</label>
+        <textarea id="comment" name="comment" rows="3" cols="40" class="form-control"></textarea>
+      </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
         <button class="btn btn-primary" type="submit">Submit</button>
