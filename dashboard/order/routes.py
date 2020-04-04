@@ -30,7 +30,7 @@ def get_order():
 @login_required
 def add_order():
     if request.method == 'POST':
-        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), BusinesName = '', PhoneNumber = '', Address = '', IdBusines = request.form['BusinesName'], IdCrop = request.form['Crop'], IdQty = request.form['Qty'], IdOrderStatus = request.form['OrderStatus'], Price = request.form['Price'], Ordertime = request.form['Ordertime'])
+        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = request.form['Price'])
         try :
             db.session.add(NewOrder)
             db.session.commit()
