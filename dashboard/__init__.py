@@ -32,6 +32,7 @@ def create_app(config_class=Config):
     from dashboard.order_status.routes import order_status
     from dashboard.priority.routes import priority
     from dashboard.extraservices.routes import extraservices
+    from dashboard.time.routes import time
     from dashboard.main.routes import main 
 
     app.register_blueprint(services)
@@ -45,6 +46,7 @@ def create_app(config_class=Config):
     app.register_blueprint(order_status)
     app.register_blueprint(priority)
     app.register_blueprint(extraservices)
+    app.register_blueprint(time)
     app.register_blueprint(main)
 
     return app

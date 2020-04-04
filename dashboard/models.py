@@ -128,6 +128,13 @@ class Situation(db.Model):
     def __repr__(self) :
         return f"Situation('{self.IdSituation}','{self.Situation}','{self.CreatedAt}')"
 
+class Time(db.Model):
+    IdTime = db.Column(db.Integer, primary_key=True)
+    TimeDec   = db.Column(db.String(250), nullable=False)
+    CreatedAt  = db.Column(db.DateTime, nullable=False) 
+
+    def __repr__(self) :
+        return f"Time('{self.IdTime}','{self.TimeDec }','{self.CreatedAt}')"
 
 class OrdersMaintenance(db.Model):
     IdOrder = db.Column(db.Integer, primary_key=True)
@@ -142,13 +149,15 @@ class OrdersMaintenance(db.Model):
     IdPriority  = db.Column(db.Integer, db.ForeignKey('priority.IdPriority'))
     IdOrderStatus  = db.Column(db.Integer, db.ForeignKey('order_status.IdOrderStatus'))
     Ordertime = db.Column(db.String(250), nullable=True) 
-    Time = db.Column(db.String(250), nullable=True) 
+    Time = db.Column(db.Integer, db.ForeignKey('time.IdTime')) 
     Comment = db.Column(db.String(250), nullable=True) 
     CreatedAt = db.Column(db.DateTime, nullable=False)
 
     service = db.relationship("Service", backref="OrdersMaintenance")
     priority = db.relationship("Priority", backref="OrdersMaintenance") 
     status = db.relationship("OrderStatus", backref="OrdersMaintenance") 
+    time = db.relationship("Time", backref="OrdersMaintenance") 
+
 
     def __repr__(self) :
         return f"OrdersMaintenance('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.IdService}','{self.Price}','{self.IdPriority}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.Comment}')"        

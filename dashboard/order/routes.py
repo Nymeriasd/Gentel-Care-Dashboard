@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus, Priority
+from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus, Priority, Time
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 import random
@@ -25,7 +25,8 @@ def get_order():
     ServiceItems = db.session.query(Service).all()
     OrderStatusItems = db.session.query(OrderStatus).all()
     PriorityItems = db.session.query(Priority).all()
-    return render_template('orders.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems, ServiceItems = ServiceItems, PriorityItems = PriorityItems)
+    TimeItems = db.session.query(Time).all()
+    return render_template('orders.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems, ServiceItems = ServiceItems, PriorityItems = PriorityItems, TimeItems = TimeItems)
 
 # add new order
 @orders.route('/order/new', methods=['POST', 'GET'])
