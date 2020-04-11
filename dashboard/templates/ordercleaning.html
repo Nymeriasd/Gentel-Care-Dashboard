@@ -1,21 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- Begin Page Content -->
 <div class="container-fluid">
-
-  <!-- Page Heading -->
-  <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-              class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
-            information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-              DataTables documentation</a>.</p> -->
-
-  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-        data-target="#insertModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Order Maintenance</a>
+        data-target="#insertModal"><i class="fas fa-plus fa-sm text-white-50"></i> Add Order Cleaning</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -34,14 +24,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          <!-- <tfoot>
-                        <tr>
-                          <th>Id</th>
-                          <th>Name</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot> -->
+
           <tbody>
             {% for item in OrdersItems %}
             <tr>
@@ -49,9 +32,9 @@
               <td>{{ item.FirstName }}</td>
               <td>{{ item.PhoneNumber }}</td>
               <td>{{ item.Address }}</td>
-              <td>{{ item.Price }}</td>
-              <td>{{ item.Ordertime }}</td>
-              <td>{{ item.Price }}</td>
+              <td>{{ item.Service }}</td>
+              <td>{{ item.OrderDate }}</td>
+              <td>{{ item.Price }} SDG</td>
               <td>{{ item.status.OrderStatus }}</td>
               <td>{{ item.CreatedAt }}</td>
               <td>
@@ -164,7 +147,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="{{url_for('orders.edit_status_order', IdOrder = item.IdOrder )}}" method="POST">
+                    <form action="{{url_for('ordercleaning.edit_status_order', IdOrder = item.IdOrder )}}" method="POST">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Edit Status :</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="OrderStatusName">
@@ -199,7 +182,7 @@
                   <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary"
-                      href="{{url_for('orders.delete_order', IdOrder = item.IdOrder )}}">Delete</a>
+                      href="{{url_for('ordercleaning.delete_order', IdOrder = item.IdOrder )}}">Delete</a>
                   </div>
                 </div>
               </div>

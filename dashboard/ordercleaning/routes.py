@@ -78,7 +78,7 @@ def edit_order(IdOrder):
 @login_required
 def edit_status_order(IdOrder):
     if request.method == 'POST':
-        EditOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
+        EditOrder = db.session.query(OrdersCleaning).filter_by(IdOrder = IdOrder).one()
         EditOrder.IdOrderStatus = request.form['OrderStatusName']
        
         try :
@@ -97,7 +97,7 @@ def edit_status_order(IdOrder):
 @login_required
 def delete_order(IdOrder):
     if request.method == 'GET':
-        DeleteOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
+        DeleteOrder = db.session.query(OrdersCleaning).filter_by(IdOrder = IdOrder).one()
         try :
             db.session.delete(DeleteOrder)
             db.session.commit()
