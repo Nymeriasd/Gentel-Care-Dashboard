@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus, Priority, Time, OrdersCleaning
+from dashboard.models import Service, Role, Users, Farmer, Business, Situation, OrdersMaintenance, OrderStatus, Priority, Time, OrdersCleaning, ExtraService
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 import random
@@ -23,8 +23,9 @@ def random_string_generator(size=5,  chars=string.ascii_uppercase + string.digit
 def get_order():
     OrdersItems = db.session.query(OrdersCleaning).all()
     OrderStatusItems = db.session.query(OrderStatus).all()
+    ExtraServiceItems = db.session.query(ExtraService).join(Situation).filter(Situation.Situation == 'Enabled').all()
 
-    return render_template('ordercleaning.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems)
+    return render_template('ordercleaning.html', OrdersItems = OrdersItems, OrderStatusItems = OrderStatusItems, ExtraServiceItems = ExtraServiceItems)
 
 # add new order
 @ordercleaning.route('/ordercleaning/new', methods=['POST', 'GET'])

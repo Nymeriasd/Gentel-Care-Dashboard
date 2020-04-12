@@ -58,7 +58,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Maintenance Order</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Cleaning Order</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
@@ -101,14 +101,6 @@
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="exampleFormControlSelect1">Choose Priority :</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="Priority">
-                          {% for item in PriorityItems %}
-                          <option value="{{ item.IdPriority }}">{{ item.PriorityName }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="form-group">
                         <label for="exampleFormControlSelect1">Choose Time :</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="Time">
                           {% for item in TimeItems %}
@@ -141,7 +133,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Order</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Cleaning Order</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
@@ -173,7 +165,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Maintenance Order</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Cleaning Order</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
@@ -208,7 +200,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Insert Maintenance Order</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Insert Cleaning Order</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -243,32 +235,29 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Services :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Services">
-              {% for item in ServiceItems %}
-              <option value="{{ item.IdService }}">{{ item.Name }}</option>
+            <p><label for="exampleFormControlSelect1">Choose Services :</label></p>
+              {% for item in ExtraServiceItems %}
+              <input type="checkbox" value="{{ item.IdService }}" name="Services">{{ item.Name }}
               {% endfor %}
-            </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Priority :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Priority">
-              {% for item in PriorityItems %}
-              <option value="{{ item.IdPriority }}">{{ item.PriorityName }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Choose Time :</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="Time">
-              {% for item in TimeItems %}
-              <option value="{{ item.IdTime }}">{{ item.TimeDec }}</option>
-              {% endfor %}
+            <label for="exampleFormControlSelect1">How often Customer clean :</label>
+            <select class="form-control" id="BookingType" name="BookingType" >
+              <option value="Once">Once</option>
+              <option value="Schedule">Cleaning Schedule</option>
                 </select>
           </div>
           <div class="form-group">
             <label for="inputAddress2">Selected Date :</label>
-            <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
+            <input type="date" class="form-control" id="OnceDate" name="OnceDate">
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2">Start Date :</label>
+            <input type="date" class="form-control" id="StartDate" name="StartDate">
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2">End Date :</label>
+            <input type="date" class="form-control" id="EndDate" name="EndDate">
           </div>
       </div>
       <div class="col-sm-12">
@@ -283,4 +272,6 @@
     </div>
   </div>
 </div>
+
+
 {% endblock content %}
