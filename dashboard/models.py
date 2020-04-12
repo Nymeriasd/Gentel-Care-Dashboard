@@ -8,8 +8,6 @@ def load_user(IdUser):
 
 
 
-
-
 class Service(db.Model):
     IdService = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(250), nullable=False)

@@ -32,8 +32,32 @@ def get_order():
 @login_required
 def add_order():
     if request.method == 'POST':
-        GetService = db.session.query(Service).filter(Service.IdService == request.form['Services']).one()
-        NewOrder = OrdersMaintenance(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], IdService = request.form['Services'], IdPriority = request.form['Priority'], IdOrderStatus = 1, Ordertime = request.form['Ordertime'], Price = GetService.Price, Comment = request.form['comment'], Time = request.form['Time'])
+        ExtraServiceId = request.form.getlist('Services')
+        OnceDate = request.form['OnceDate']
+        StartDate = request.form['StartDate']
+        EndDate = request.form['EndDate']
+        Comment = request.form['comment']
+
+        TotalPrice = 0
+        Service = []
+        for i in ExtraServiceId :
+            GetServiceName = db.session.query(ExtraService).filter_by(IdService = i).one()
+            Name = GetServiceName.Name
+            Price = GetServiceName.Price
+            TotalPrice += Price
+            Service.append(Name)
+        
+        if OnceDate :
+            OrderDate = OnceDate
+        else :
+            OrderDate = StartDate + ' to ' + EndDate
+
+        if Comment :
+            Comment = Comment
+        else :
+            Comment = "No Comment"
+
+        NewOrder = OrdersCleaning(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], Service = Service, BookingType = request.form['BookingType'], IdOrderStatus = 1, OrderDate = OrderDate, Price = TotalPrice, Comment = Comment, Maid = request.form['Maid'], Time = request.form['Hours'])
         try :
             db.session.add(NewOrder)
             db.session.commit()
@@ -42,7 +66,7 @@ def add_order():
             return redirect(url_for('ordercleaning.get_order'))
         except Exception as err :
             flash('No !! ' + Sad + ' Order did not insert successfully . Please check insertion ', 'danger')
- 
+            print(err)
     return redirect(url_for('ordercleaning.get_order'))
 
 # edit order
@@ -50,7 +74,7 @@ def add_order():
 @login_required
 def edit_order(IdOrder):
     if request.method == 'POST':
-        EditOrder = db.session.query(OrdersMaintenance).filter_by(IdOrder = IdOrder).one()
+        EditOrder = db.session.query(OrdersCleaning).filter_by(IdOrder = IdOrder).one()
         EditOrder.FirstName = request.form['CustomerFirstName']
         EditOrder.FirstName  = request.form['CustomerLastName']
         EditOrder.PhoneNumber = request.form['CustomerPhone']
@@ -61,6 +85,8 @@ def edit_order(IdOrder):
         EditOrder.IdPriority  = request.form['Priority']
         EditOrder.Ordertime  = request.form['Ordertime']
         EditOrder.Price  = GetService.Price
+        EditOrder.Comment  = request.form['comment']
+        EditOrder.Maid  = request.form['comment']
         EditOrder.Comment  = request.form['comment']
         EditOrder.Time  = request.form['Time']
         try :

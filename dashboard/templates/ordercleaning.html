@@ -64,7 +64,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="{{url_for('orders.edit_order', IdOrder = item.IdOrder )}}" method="POST">
+                    <form action="{{url_for('ordercleaning.edit_order', IdOrder = item.IdOrder )}}" method="POST">
                       <div class="form-row">
                         <div class="form-group col-md-12">
                           <label for="exampleFormControlSelect1">First Name:</label>
@@ -206,7 +206,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{url_for('orders.add_order')}}" method="POST">
+        <form action="{{url_for('ordercleaning.add_order')}}" method="POST">
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="exampleFormControlSelect1">First Name:</label>
@@ -235,7 +235,7 @@
             </div>
           </div>
           <div class="form-group">
-            <p><label for="exampleFormControlSelect1">Choose Services :</label></p>
+            <p><label for="exampleFormControlSelect1">Choose Extra Services :</label></p>
               {% for item in ExtraServiceItems %}
               <input type="checkbox" value="{{ item.IdService }}" name="Services">{{ item.Name }}
               {% endfor %}
@@ -246,6 +246,14 @@
               <option value="Once">Once</option>
               <option value="Schedule">Cleaning Schedule</option>
                 </select>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2"> Hours Number :</label>
+            <input type="number" class="form-control" id="Hours" name="Hours">
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2">Maid Number :</label>
+            <input type="number" class="form-control" id="Maid" name="Maid">
           </div>
           <div class="form-group">
             <label for="inputAddress2">Selected Date :</label>
