@@ -237,7 +237,7 @@
           <div class="form-group">
             <p><label for="exampleFormControlSelect1">Choose Extra Services :</label></p>
               {% for item in ExtraServiceItems %}
-              <input type="checkbox" value="{{ item.IdService }}" name="Services">{{ item.Name }}
+              <input type="checkbox" value="{{ item.Name }}" name="Services">{{ item.Name }}
               {% endfor %}
           </div>
           <div class="form-group">

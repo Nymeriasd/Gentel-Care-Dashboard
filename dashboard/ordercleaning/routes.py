@@ -32,20 +32,21 @@ def get_order():
 @login_required
 def add_order():
     if request.method == 'POST':
-        ExtraServiceId = request.form.getlist('Services')
+        ExtraService = request.form.getlist('Services')
         OnceDate = request.form['OnceDate']
         StartDate = request.form['StartDate']
         EndDate = request.form['EndDate']
         Comment = request.form['comment']
-
-        TotalPrice = 0
-        Service = []
-        for i in ExtraServiceId :
-            GetServiceName = db.session.query(ExtraService).filter_by(IdService = i).one()
-            Name = GetServiceName.Name
-            Price = GetServiceName.Price
-            TotalPrice += Price
-            Service.append(Name)
+        # print(ExtraService)
+        # TotalPrice = 0
+        # Service = []
+        # for i in ExtraService :
+        #     GetServiceName = db.session.query(ExtraService).filter_by(Name = i).one()
+        #     Name = GetServiceName.Id
+        #     Price = GetServiceName.Price
+        #     TotalPrice += Price
+        #     Service.append(Name)
+        # print(TotalPrice)
         
         if OnceDate :
             OrderDate = OnceDate
@@ -57,7 +58,7 @@ def add_order():
         else :
             Comment = "No Comment"
 
-        NewOrder = OrdersCleaning(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], Service = Service, BookingType = request.form['BookingType'], IdOrderStatus = 1, OrderDate = OrderDate, Price = TotalPrice, Comment = Comment, Maid = request.form['Maid'], Time = request.form['Hours'])
+        NewOrder = OrdersCleaning(OrderNumber = "O"+random_string_generator(), FirstName = request.form['CustomerFirstName'], LastName = request.form['CustomerLastName'], PhoneNumber = request.form['CustomerPhone'], Address = request.form['CustomerAddress'], Email = request.form['CustomerEmail'], Service = ExtraService, BookingType = request.form['BookingType'], IdOrderStatus = 1, OrderDate = OrderDate, Price = 000, Comment = Comment, Maid = request.form['Maid'], Time = request.form['Hours'])
         try :
             db.session.add(NewOrder)
             db.session.commit()
