@@ -17,14 +17,15 @@ Sassy = Markup('<span>&#128540;</span>')
 def get_agent():
     AgentItems = db.session.query(Agent).all()
     ServiceItems = db.session.query(Service).all()
-    return render_template('agent.html', AgentItems = AgentItems, ServiceItems = ServiceItems)
+    SituationItems = db.session.query(Situation).all()
+    return render_template('agent.html', AgentItems = AgentItems, ServiceItems = ServiceItems, SituationItems = SituationItems)
 
 # add agent
 @agent.route('/agent/new', methods=['POST', 'GET'])
 @login_required
 def add_agent():
     if request.method == 'POST' :
-        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = request.form['Password'], PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'])
+        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8'), PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'], Enabled = request.form['Status'])
         try :
             db.session.add(NewAgent)
             db.session.commit()
@@ -69,7 +70,7 @@ def delete_agent(IdAgent):
             db.session.delete(DeleteAgent)
             db.session.commit()
             flash('Yes !! Agent is deleted successfully '+ Happy , 'success')
-            return redirect(url_for('agent.get_business'))
+            return redirect(url_for('agent.get_agent'))
         except Exception as err :
             flash('NA NA NA you can delete me. Try again ' + Sassy  , 'danger')
           
