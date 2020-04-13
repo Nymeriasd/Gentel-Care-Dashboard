@@ -11,35 +11,35 @@ Sassy = Markup('<span>&#128540;</span>')
 
 
 
-# get all business
+# get all agent
 @agent.route('/agent', methods=['POST', 'GET'])
 @login_required
-def get_business():
+def get_agent():
     AgentItems = db.session.query(Agent).all()
     return render_template('agent.html', AgentItems = AgentItems)
 
-# add Business
+# add agent
 @agent.route('/agent/new', methods=['POST', 'GET'])
 @login_required
-def add_business():
+def add_agent():
     if request.method == 'POST' :
-        NewBusiness = Business(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Email = request.form['Email'], PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], BusinesName = request.form['BusinesName'])
+        NewBusiness = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Email = request.form['Email'], PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], BusinesName = request.form['BusinesName'])
         try :
             db.session.add(NewBusiness)
             db.session.commit()
             flash('Yes !! Agent inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
-            return redirect(url_for('agent.get_business'))
+            return redirect(url_for('agent.get_agent'))
         except Exception as err :
             flash('No !! ' + Sad + ' Agent did not insert successfully . Please check insertion ', 'danger')
         
-    return redirect(url_for('agent.get_business'))
+    return redirect(url_for('agent.get_agent'))
 
-# edit business
+# edit agent
 @agent.route('/agent/<int:IdBusines>/edit', methods=['POST', 'GET'])
 @login_required
-def edit_busines(IdBusines):
+def edit_agent(IdBusines):
     if request.method == 'POST':
-        EditBusiness = db.session.query(Business).filter_by(IdBusines = IdBusines).one()
+        EditBusiness = db.session.query(Agent).filter_by(IdBusines = IdBusines).one()
         EditBusiness.FirstName = request.form['FirstName']
         EditBusiness.LastName = request.form['LastName']
         EditBusiness.Email = request.form['Email']
@@ -50,20 +50,20 @@ def edit_busines(IdBusines):
             db.session.add(EditBusiness)
             db.session.commit()
             flash('Yes !! Agent is edited successfully '+ Happy , 'success')
-            return redirect(url_for('agent.get_business'))
+            return redirect(url_for('agent.get_agent'))
         except Exception as err :
             flash('No !! ' + Sad + ' Agent did not edit successfully . Please check insertion ' , 'danger')
         
-    return redirect(url_for('agent.get_business'))
+    return redirect(url_for('agent.get_agent'))
 
         
 
-# delete Business
+# delete agent
 @agent.route('/agent/<int:IdBusines>/delete', methods=['POST', 'GET'])
 @login_required
-def delete_business(IdBusines):
+def delete_agent(IdBusines):
     if request.method == 'GET':
-        DeleteBusines = db.session.query(Business).filter_by(IdBusines = IdBusines).one()
+        DeleteBusines = db.session.query(Agent).filter_by(IdBusines = IdBusines).one()
         try :
             db.session.delete(DeleteBusines)
             db.session.commit()
@@ -72,4 +72,4 @@ def delete_business(IdBusines):
         except Exception as err :
             flash('NA NA NA you can delete me. Try again ' + Sassy  , 'danger')
           
-    return redirect(url_for('agent.get_business'))
+    return redirect(url_for('agent.get_agent'))
