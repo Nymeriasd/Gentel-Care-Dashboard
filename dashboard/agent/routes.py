@@ -15,8 +15,8 @@ Sassy = Markup('<span>&#128540;</span>')
 @agent.route('/agent', methods=['POST', 'GET'])
 @login_required
 def get_business():
-    BusinessItems = db.session.query(Business).all()
-    return render_template('business.html', BusinessItems = BusinessItems)
+    AgentItems = db.session.query(Agent).all()
+    return render_template('agent.html', AgentItems = AgentItems)
 
 # add Business
 @agent.route('/agent/new', methods=['POST', 'GET'])

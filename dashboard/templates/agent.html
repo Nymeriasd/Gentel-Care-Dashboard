@@ -1,17 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<!-- Begin Page Content -->
 <div class="container-fluid">
 
-  <!-- Page Heading -->
-  <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-              class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
-            information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-              DataTables documentation</a>.</p> -->
-
-  <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
@@ -43,7 +34,7 @@
                         </tr>
                       </tfoot> -->
           <tbody>
-            {% for item in BusinessItems %}
+            {% for item in AgentItems %}
             <tr>
               <td>{{ item.IdBusines }}</td>
               <td>{{ item.FirstName }}</td>
@@ -141,13 +132,9 @@
   </div>
 
 </div>
-<!-- /.container-fluid -->
-
 </div>
-<!-- End of Main Content -->
 
 
-<!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
   <i class="fas fa-angle-up"></i>
 </a>
