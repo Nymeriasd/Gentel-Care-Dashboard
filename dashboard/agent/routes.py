@@ -45,10 +45,12 @@ def edit_agent(IdAgent):
         EditAgent = db.session.query(Agent).filter_by(IdAgent = IdAgent).one()
         EditAgent.FirstName = request.form['FirstName']
         EditAgent.LastName = request.form['LastName']
-        EditAgent.Email = request.form['Email']
+        EditAgent.Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8')
         EditAgent.PhoneNumber = request.form['PhoneNumber']
         EditAgent.Address = request.form['Address']
-        EditAgent.BusinesName = request.form['BusinesName']
+        EditAgent.IdService = request.form['Service']
+        EditAgent.Enabled = request.form['Status']
+        EditAgent.Time = request.form['Time']
         try :
             db.session.add(EditAgent)
             db.session.commit()
