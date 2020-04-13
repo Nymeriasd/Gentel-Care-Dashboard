@@ -34,7 +34,6 @@ def create_app(config_class=Config):
     from dashboard.extraservices.routes import extraservices
     from dashboard.time.routes import time 
     from dashboard.ordercleaning.routes import ordercleaning 
-    from dashboard.agent_login.routes import agent_login 
     from dashboard.main.routes import main 
 
     app.register_blueprint(services)
@@ -50,7 +49,6 @@ def create_app(config_class=Config):
     app.register_blueprint(extraservices)
     app.register_blueprint(time)
     app.register_blueprint(ordercleaning)
-    app.register_blueprint(agent_login)
     app.register_blueprint(main)
 
     return app

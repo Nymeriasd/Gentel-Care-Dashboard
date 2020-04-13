@@ -113,6 +113,7 @@ class Agent(db.Model):
         return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Password}','{self.PhoneNumber}','{self.Address}','{self.IdService}','{self.Time}','{self.CreatedAt}')"        
 
 
+   
 class Priority(db.Model):
     IdPriority = db.Column(db.Integer, primary_key=True)
     PriorityName  = db.Column(db.String(250), nullable=False)
