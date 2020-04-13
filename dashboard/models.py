@@ -102,13 +102,15 @@ class Agent(db.Model):
     Address = db.Column(db.String(250), nullable=True)
     IdService = db.Column(db.Integer , db.ForeignKey('service.IdService'))
     Enabled = db.Column(db.Integer, db.ForeignKey('situation.IdSituation'))
+    Time = db.Column(db.Integer, db.ForeignKey('time.IdTime'))
     CreatedAt = db.Column(db.DateTime, nullable=False) 
 
     service = db.relationship('Service',  backref="Agent")
+    time = db.relationship('Time',  backref="Agent")
     situation = db.relationship('Situation', backref='Agent')
 
     def __repr__(self) :
-        return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Password}','{self.PhoneNumber}','{self.Address}','{self.IdService}','{self.CreatedAt}')"        
+        return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Password}','{self.PhoneNumber}','{self.Address}','{self.IdService}','{self.Time}','{self.CreatedAt}')"        
 
 
 class Priority(db.Model):

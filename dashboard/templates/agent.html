@@ -20,6 +20,7 @@
               <th>Phone Number</th>
               <th>Address</th>
               <th>Availability time</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -33,7 +34,8 @@
               <td>{{ item.service.Name }}</td>
               <td>{{ item.PhoneNumber }}</td>
               <td>{{ item.Address }}</td>
-              <td>{{ item.CreatedAt }}</td>
+              <td>{{ item.time.TimeDec }}</td>
+              <td>{{ item.situation.Situation }}</td>
               <td>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
                   data-target="#editModal{{ item.IdAgent }}"><i class="fas fa-edit fa-sm text-white-50"></i>
@@ -179,7 +181,11 @@
           </div>
           <div class="form-group">
             <label for="inputAddress2">Availability Date : </label>
-            <input type="date" class="form-control" id="inputAddress2" name="Ordertime">
+            <select class="form-control" id="exampleFormControlSelect1" name="Time">
+              {% for item in TimeItems %}
+              <option value="{{ item.IdTime }}">{{ item.TimeDec }}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Choose status :</label>

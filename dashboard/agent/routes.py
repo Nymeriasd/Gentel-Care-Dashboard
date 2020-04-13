@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Agent, Situation, OrdersMaintenance, OrderStatus
+from dashboard.models import Service, Role, Users, Farmer, Agent, Situation, OrdersMaintenance, OrderStatus, Time
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 
@@ -18,14 +18,15 @@ def get_agent():
     AgentItems = db.session.query(Agent).all()
     ServiceItems = db.session.query(Service).all()
     SituationItems = db.session.query(Situation).all()
-    return render_template('agent.html', AgentItems = AgentItems, ServiceItems = ServiceItems, SituationItems = SituationItems)
+    TimeItems = db.session.query(Time).all()
+    return render_template('agent.html', AgentItems = AgentItems, ServiceItems = ServiceItems, SituationItems = SituationItems, TimeItems = TimeItems)
 
 # add agent
 @agent.route('/agent/new', methods=['POST', 'GET'])
 @login_required
 def add_agent():
     if request.method == 'POST' :
-        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8'), PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'], Enabled = request.form['Status'])
+        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8'), PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'], Enabled = request.form['Status'], Time = request.form['Time'])
         try :
             db.session.add(NewAgent)
             db.session.commit()
