@@ -16,7 +16,6 @@ class Service(db.Model):
     CreatedAt = db.Column(db.DateTime, nullable=False) 
     situation = db.relationship('Situation', backref='Service')
 
-
     def __repr__(self) :
         return f"Service('{self.IdService}','{self.Name},'{self.Price}','{self.Enabled}','{self.CreatedAt}')"
 
@@ -28,7 +27,6 @@ class ExtraService(db.Model):
     Enabled = db.Column(db.Integer, db.ForeignKey('situation.IdSituation'))
     CreatedAt = db.Column(db.DateTime, nullable=False) 
     situation = db.relationship('Situation', backref='ExtraService')
-
 
     def __repr__(self) :
         return f"ExtraService('{self.IdService}','{self.Name},'{self.Price}','{self.Enabled}','{self.CreatedAt}')"
@@ -99,14 +97,16 @@ class Agent(db.Model):
     IdAgent = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(250), nullable=True)
     LastName = db.Column(db.String(250), nullable=True)
-    Email = db.Column(db.String(250), nullable=True)
+    Password = db.Column(db.String(250), nullable=True)
     PhoneNumber = db.Column(db.String(250), nullable=True)
     Address = db.Column(db.String(250), nullable=True)
-    BusinesName = db.Column(db.String(250), nullable=True)
+    IdService = db.Column(db.Integer , db.ForeignKey('service.IdService'))
     CreatedAt = db.Column(db.DateTime, nullable=False) 
 
+    service = db.relationship('Service',  backref="Agent")
+
     def __repr__(self) :
-        return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Email}','{self.PhoneNumber}','{self.Address}','{self.BusinesName}','{self.CreatedAt}')"        
+        return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Password}','{self.PhoneNumber}','{self.Address}','{self.IdService}','{self.CreatedAt}')"        
 
 
 class Priority(db.Model):
