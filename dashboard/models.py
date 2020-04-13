@@ -95,8 +95,8 @@ class Farmer(db.Model):
 
 
 
-class Business(db.Model):
-    IdBusines = db.Column(db.Integer, primary_key=True)
+class Agent(db.Model):
+    IdAgent = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(250), nullable=True)
     LastName = db.Column(db.String(250), nullable=True)
     Email = db.Column(db.String(250), nullable=True)
@@ -106,7 +106,7 @@ class Business(db.Model):
     CreatedAt = db.Column(db.DateTime, nullable=False) 
 
     def __repr__(self) :
-        return f"Business('{self.IdBusines}',{self.FirstName}','{self.LastName}','{self.Email}','{self.PhoneNumber}','{self.Address}','{self.BusinesName}','{self.CreatedAt}')"        
+        return f"Agent('{self.IdAgent}',{self.FirstName}','{self.LastName}','{self.Email}','{self.PhoneNumber}','{self.Address}','{self.BusinesName}','{self.CreatedAt}')"        
 
 
 class Priority(db.Model):

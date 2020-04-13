@@ -25,7 +25,7 @@ def create_app(config_class=Config):
     from dashboard.role.routes import role
     from dashboard.users.routes import users
     from dashboard.farmer.routes import farmer 
-    from dashboard.business.routes import business
+    from dashboard.agent.routes import agent
     from dashboard.status.routes import status
     from dashboard.order.routes import orders
     from dashboard.condition.routes import condition
@@ -40,7 +40,7 @@ def create_app(config_class=Config):
     app.register_blueprint(role)
     app.register_blueprint(users)
     app.register_blueprint(farmer)
-    app.register_blueprint(business)
+    app.register_blueprint(agent)
     app.register_blueprint(status)
     app.register_blueprint(orders)
     app.register_blueprint(condition)
