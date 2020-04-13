@@ -27,10 +27,10 @@ def login():
 @login_required
 def index():
     OrdersNumbers  = db.session.query(OrdersMaintenance).count()
-    BusinessNumbers = db.session.query(Business).count()
+    AgentNumbers = db.session.query(Agent).count()
     ServiceNumbers = db.session.query(Service).count()
     UsersNumbers = db.session.query(Users).count()
-    return render_template('index.html', OrdersNumbers = OrdersNumbers, BusinessNumbers = BusinessNumbers, ServiceNumbers = ServiceNumbers, UsersNumbers = UsersNumbers)
+    return render_template('index.html', OrdersNumbers = OrdersNumbers, AgentNumbers = AgentNumbers, ServiceNumbers = ServiceNumbers, UsersNumbers = UsersNumbers)
     
 # logout route
 @main.route('/logout')
