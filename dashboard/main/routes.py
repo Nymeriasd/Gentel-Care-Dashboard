@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Farmer, Agent, Situation, OrdersMaintenance, OrderStatus
+from dashboard.models import Service, Role, Users, Farmer, Agent, Situation, OrdersMaintenance, OrderStatus, OrdersCleaning
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 
@@ -27,10 +27,21 @@ def login():
 @login_required
 def index():
     OrdersNumbers  = db.session.query(OrdersMaintenance).count()
+    OrderCleaningCount = db.session.query(OrdersCleaning).count()
     AgentNumbers = db.session.query(Agent).count()
     ServiceNumbers = db.session.query(Service).count()
     UsersNumbers = db.session.query(Users).count()
-    return render_template('index.html', OrdersNumbers = OrdersNumbers, AgentNumbers = AgentNumbers, ServiceNumbers = ServiceNumbers, UsersNumbers = UsersNumbers)
+    OrdersMaintenanceGeo = db.session.query(OrdersMaintenance).all()
+    OrderCleaningGeo = db.session.query(OrdersCleaning).all()
+    AgentGeo = db.session.query(Agent).all()
+
+    print(OrdersMaintenanceGeo)
+    print(AgentGeo)
+    print(OrderCleaningCount)
+    # DoneOrdersGeo  =  db.session.query(OrdersMaintenance).join(OrderStatus).filter(OrdersMaintenance.IdService == current_user.IdService).filter(OrdersMaintenance.IdAgent == current_user.IdAgent).filter(OrderStatus.OrderStatus == 'Done').all()
+    # PendingOrdersGeo  =  db.session.query(OrdersMaintenance).join(OrderStatus).filter(OrdersMaintenance.IdService == current_user.IdService).filter(OrderStatus.OrderStatus != 'Done').all()
+   
+    return render_template('index.html', OrdersNumbers = OrdersNumbers, AgentNumbers = AgentNumbers, ServiceNumbers = ServiceNumbers, UsersNumbers = UsersNumbers, OrdersMaintenanceGeo = OrdersMaintenanceGeo, AgentGeo = AgentGeo, OrderCleaningCount = OrderCleaningCount, OrderCleaningGeo = OrderCleaningGeo)
     
 # logout route
 @main.route('/logout')

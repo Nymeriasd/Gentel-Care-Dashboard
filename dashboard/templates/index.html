@@ -20,7 +20,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">#of Orders</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">#of Maintaince Orders</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">{{ OrdersNumbers }}</div>
             </div>
             <div class="col-auto">
@@ -37,8 +37,8 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">#of Agents</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ AgentNumbers }}</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">#of Cleaning Orders</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ OrderCleaningCount }}</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -55,7 +55,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">#of Customers
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">#of Agents
               </div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">{{ AgentNumbers }}</div>
             </div>
@@ -75,7 +75,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">#of Services</div>
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">#of Customers</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ServiceNumbers }}</div>
             </div>
             <div class="col-auto">
@@ -102,6 +102,25 @@
         </div>
       </div>
     </div>
+
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">#of Services</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ ServiceNumbers }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
 
 
     <!-- <div class="col-xl-3 col-md-6 mb-4">
@@ -159,19 +178,92 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
               }
               map = new google.maps.Map(document.getElementById("map"), myOptions);
-              TestMarker();
+              TestMarkerOrderMainiatince();
+              TestMarkerOrderCleaning();
+              TestMarkerAgent();
+
             }
 
 
-            function TestMarker() {
+            function TestMarkerAgent() {
+
+                var infoWindow = new google.maps.InfoWindow();
+
+                {% for item in AgentGeo %}
+
+                var lat = {{ item.lat }}
+                var long = {{ item.lon }};
+                var Id = {{ item.lon }};
+
+
+                var location = new google.maps.LatLng(lat, long);
+
+                var marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                title: "heloooo" ,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/orange.png',
+                position: location,
+                });
+
+                (function (marker, nIdame) {
+                  google.maps.event.addListener(marker, "click", function (e) {
+                      infoWindow.open(map, marker);
+                  });
+                })(marker, Id);
+
+
+                {% endfor %}
+
+                }
+
+
+            function TestMarkerOrderCleaning() {
+
+                var infoWindow = new google.maps.InfoWindow();
+
+                {% for item in OrderCleaningGeo %}
+
+                var lat = {{ item.latit }}
+                var long = {{ item.lon }};
+                var Id = {{ item.lon }};
+
+
+                var location = new google.maps.LatLng(lat, long);
+
+                var marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                title: "heloooo" ,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/purple.png',
+                position: location,
+                });
+
+                (function (marker, nIdame) {
+                  google.maps.event.addListener(marker, "click", function (e) {
+                      infoWindow.open(map, marker);
+                  });
+                })(marker, Id);
+
+
+                {% endfor %}
+
+                }
+
+
+
+
+            function TestMarkerOrderMainiatince() {
 
               var infoWindow = new google.maps.InfoWindow();
 
-              {% for item in GeoItems %}
+              {% for item in OrdersMaintenanceGeo %}
               
-              var lat = {{ item.lat }}
+              var lat = {{ item.latit }}
               var long = {{ item.lon }};
-              var Id = {{ item.IdGeo }};
+              var Id = {{ item.lon }};
               
 
             var location = new google.maps.LatLng(lat, long);
@@ -181,13 +273,12 @@
               draggable: true,
               animation: google.maps.Animation.DROP,
               title: "heloooo" ,
-              // icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+              icon: 'http://maps.google.com/mapfiles/ms/icons/green.png',
               position: location,
             });
 
             (function (marker, nIdame) {
                 google.maps.event.addListener(marker, "click", function (e) {
-                    infoWindow.setContent("<div style = 'width:150px;min-height:40px'> <span> {{ item.business.BusinesName }} </span> </div>");
                     infoWindow.open(map, marker);
                 });
             })(marker, Id);

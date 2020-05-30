@@ -153,6 +153,8 @@ class OrdersMaintenance(db.Model):
     IdAgent = db.Column(db.Integer, db.ForeignKey('agent.IdAgent'))
     Price  = db.Column(db.String(250), nullable=True)
     IdPriority  = db.Column(db.Integer, db.ForeignKey('priority.IdPriority'))
+    latit = db.Column(db.String(250), nullable=True)
+    lon = db.Column(db.String(250), nullable=True)
     IdOrderStatus  = db.Column(db.Integer, db.ForeignKey('order_status.IdOrderStatus'))
     Ordertime = db.Column(db.String(250), nullable=True) 
     Time = db.Column(db.Integer, db.ForeignKey('time.IdTime')) 
@@ -167,7 +169,7 @@ class OrdersMaintenance(db.Model):
 
 
     def __repr__(self) :
-        return f"OrdersMaintenance('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.IdService}','{self.Price}','{self.IdPriority}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.IdAgent}','{self.Comment}')"        
+        return f"OrdersMaintenance('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.IdService}','{self.Price}','{self.IdPriority}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.IdAgent}','{self.latit}','{self.lon}','{self.Comment}')"        
 
 class OrderStatus(db.Model):
     IdOrderStatus = db.Column(db.Integer, primary_key=True)
@@ -191,6 +193,8 @@ class OrdersCleaning(db.Model):
     BookingType   = db.Column(db.Integer, nullable=True)
     IdOrderStatus  = db.Column(db.Integer, db.ForeignKey('order_status.IdOrderStatus'))
     Time = db.Column(db.String(250), nullable=True) 
+    latit = db.Column(db.String(250), nullable=True)
+    lon = db.Column(db.String(250), nullable=True)
     Maid = db.Column(db.String(250), nullable=True) 
     OrderDate = db.Column(db.String(250), nullable=True)
     Comment = db.Column(db.String(250), nullable=True) 
@@ -201,4 +205,4 @@ class OrdersCleaning(db.Model):
 
 
     def __repr__(self) :
-        return f"OrdersCleaning('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.Service}','{self.Price}','{self.Maid}','{self.OnceDate}','{self.BookingType}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.Comment}','{self.StartDate}','{self.EndDate}')"        
+        return f"OrdersCleaning('{self.IdOrder}',{self.OrderNumber}','{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Email}','{self.Service}','{self.Price}','{self.Maid}','{self.OnceDate}','{self.BookingType}','{self.IdOrderStatus}','{self.Ordertime}','{self.Time}','{self.Comment}','{self.StartDate}','{self.latit}','{self.lon}','{self.EndDate}')"        
