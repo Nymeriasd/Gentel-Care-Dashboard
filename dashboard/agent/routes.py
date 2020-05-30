@@ -26,7 +26,7 @@ def get_agent():
 @login_required
 def add_agent():
     if request.method == 'POST' :
-        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8'), PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'], Enabled = request.form['Status'], Time = request.form['Time'])
+        NewAgent = Agent(FirstName = request.form['FirstName'], LastName = request.form['LastName'], Password = bcrypt.generate_password_hash(request.form['Password']).decode('utf-8'), PhoneNumber = request.form['PhoneNumber'], Address = request.form['Address'], IdService = request.form['Service'], Enabled = request.form['Status'], Time = request.form['Time'], lat = request.form['lat'], lon = request.form['lon'])
         try :
             db.session.add(NewAgent)
             db.session.commit()
