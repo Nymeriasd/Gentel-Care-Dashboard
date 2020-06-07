@@ -24,7 +24,6 @@ def create_app(config_class=Config):
     from dashboard.services.routes import services
     from dashboard.role.routes import role
     from dashboard.users.routes import users
-    from dashboard.farmer.routes import farmer 
     from dashboard.agent.routes import agent
     from dashboard.status.routes import status
     from dashboard.order.routes import orders
@@ -34,12 +33,12 @@ def create_app(config_class=Config):
     from dashboard.extraservices.routes import extraservices
     from dashboard.time.routes import time 
     from dashboard.ordercleaning.routes import ordercleaning 
+    from dashboard.cleaningprice.routes import cleaningprice 
     from dashboard.main.routes import main 
 
     app.register_blueprint(services)
     app.register_blueprint(role)
     app.register_blueprint(users)
-    app.register_blueprint(farmer)
     app.register_blueprint(agent)
     app.register_blueprint(status)
     app.register_blueprint(orders)
@@ -49,6 +48,7 @@ def create_app(config_class=Config):
     app.register_blueprint(extraservices)
     app.register_blueprint(time)
     app.register_blueprint(ordercleaning)
+    app.register_blueprint(cleaningprice)
     app.register_blueprint(main)
 
     return app

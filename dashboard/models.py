@@ -78,20 +78,6 @@ class Users(db.Model, UserMixin):
     def get_id(self):
         return (self.IdUser)
 
-class Farmer(db.Model):
-    Idfarmer = db.Column(db.Integer, primary_key=True)
-    FirstName = db.Column(db.String(250), nullable=True)
-    LastName = db.Column(db.String(250), nullable=True)
-    PhoneNumber = db.Column(db.String(250), nullable=True)
-    Address = db.Column(db.String(250), nullable=True)
-    # IdCrop = db.Column(db.Integer , db.ForeignKey('crop.IdCrop'))
-    Harvestime = db.Column(db.String(250), nullable=True)
-    CreatedAt = db.Column(db.DateTime, nullable=False) 
-
-    def __repr__(self) :
-        return f"Farmer('{self.Idfarmer}',{self.FirstName}','{self.LastName}','{self.PhoneNumber}','{self.Address}','{self.Harvestime}','{self.CreatedAt}')"        
-
-
 
 class Agent(db.Model):
     IdAgent = db.Column(db.Integer, primary_key=True)
