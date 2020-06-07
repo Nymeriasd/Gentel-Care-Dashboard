@@ -1,5 +1,5 @@
 from flask_login import login_user, current_user, logout_user, login_required
-from dashboard.models import Service, Role, Users, Agent,Situation, OrdersMaintenance, OrderStatus
+from dashboard.models import Service, Role, Users, Agent,Situation, OrdersMaintenance, OrderStatus, CleaningPrice
 from flask import abort, redirect, url_for, render_template, request, jsonify, flash, Markup, Blueprint
 from dashboard import db, bcrypt
 
@@ -13,18 +13,18 @@ Sassy = Markup('<span>&#128540;</span>')
 @cleaningprice.route('/cleaningprice', methods=['POST','GET'])
 @login_required
 def get_cleaningprice():
-    ServiceItems = db.session.query(Service).all()
+    CleaningPriceItems = db.session.query(CleaningPrice).all()
     SituationItems = db.session.query(Situation).all()
-    return render_template('cleaningprice.html', ServiceItems = ServiceItems, SituationItems = SituationItems)
+    return render_template('cleaningprice.html', CleaningPriceItems = CleaningPriceItems, SituationItems = SituationItems)
 
 # add new services
 @cleaningprice.route('/cleaningprice/new', methods=['POST','GET'])
 @login_required
 def add_cleaningprice():
     if request.method == 'POST':
-        NewService = Service(Name = request.form['ServiceName'], Price = request.form['Price'] , Enabled= request.form['Status'])
+        NewCleaningPrice = CleaningPrice(Name = request.form['ServiceName'], Price = request.form['Price'] , Enabled= request.form['Status'])
         try :
-            db.session.add(NewService)
+            db.session.add(NewCleaningPrice)
             db.session.commit()
             flash('Yes !! Service inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
@@ -34,16 +34,16 @@ def add_cleaningprice():
     return redirect(url_for('cleaningprice.get_cleaningprice'))
 
 # edit services
-@cleaningprice.route('/cleaningprice/<int:IdService>/edit', methods=['POST','GET'])
+@cleaningprice.route('/cleaningprice/<int:IdPrice>/edit', methods=['POST','GET'])
 @login_required
-def edit_service(IdService):
+def edit_cleaningprice(IdPrice):
     if request.method == 'POST':
-        EditService = db.session.query(Service).filter_by(IdService = IdService).one()
-        EditService.Name = request.form['ServiceName']
-        EditService.Price = request.form['Price']
-        EditService.Enabled = request.form['Status']
+        EditCleaningPrice = db.session.query(CleaningPrice).filter_by(IdPrice = IdPrice).one()
+        EditCleaningPrice.Name = request.form['ServiceName']
+        EditCleaningPrice.Price = request.form['Price']
+        EditCleaningPrice.Enabled = request.form['Status']
         try :
-            db.session.add(EditService)
+            db.session.add(EditCleaningPrice)
             db.session.commit()
             flash('Yes !! Service is edited successfully '+ Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
@@ -53,13 +53,13 @@ def edit_service(IdService):
     return redirect(url_for('cleaningprice.get_cleaningprice'))
 
 # delete services
-@cleaningprice.route('/cleaningprice/<int:IdService>/delete', methods=['POST','GET'])
+@cleaningprice.route('/cleaningprice/<int:IdPrice>/delete', methods=['POST','GET'])
 @login_required
-def delete_service(IdService):
+def delete_cleaningprice(IdPrice):
     if request.method == 'GET':
-        DeleteService = db.session.query(Service).filter_by(IdService = IdService).one()
+        DeleteCleaningPrice = db.session.query(CleaningPrice).filter_by(IdPrice = IdPrice).one()
         try :
-            db.session.delete(DeleteService)
+            db.session.delete(DeleteCleaningPrice)
             db.session.commit()
             flash('Yes !! Service is deleted successfully '+ Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
