@@ -9,7 +9,7 @@ Happy = Markup('<span>&#127881;</span>')
 Sad = Markup('<span>&#128557;</span>')
 Sassy = Markup('<span>&#128540;</span>')
 
-# get all services
+# get all cleaning price
 @cleaningprice.route('/cleaningprice', methods=['POST','GET'])
 @login_required
 def get_cleaningprice():
@@ -26,10 +26,10 @@ def add_cleaningprice():
         try :
             db.session.add(NewCleaningPrice)
             db.session.commit()
-            flash('Yes !! Service inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
+            flash('Yes !! Cleaning Services Price inserted successfully. Great Job ' + current_user.FirstName + Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Service did not insert successfully . Please check insertion ' , 'danger')
+            flash('No !! ' + Sad + ' Cleaning Services Price did not insert successfully . Please check insertion ' , 'danger')
 
     return redirect(url_for('cleaningprice.get_cleaningprice'))
 
@@ -45,10 +45,10 @@ def edit_cleaningprice(IdPrice):
         try :
             db.session.add(EditCleaningPrice)
             db.session.commit()
-            flash('Yes !! Service is edited successfully '+ Happy , 'success')
+            flash('Yes !! Cleaning Services Price is edited successfully '+ Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
         except Exception as err :
-            flash('No !! ' + Sad + ' Service did not edit successfully . Please check insertion ' , 'danger')
+            flash('No !! ' + Sad + ' Cleaning Services Price did not edit successfully . Please check insertion ' , 'danger')
           
     return redirect(url_for('cleaningprice.get_cleaningprice'))
 
@@ -61,7 +61,7 @@ def delete_cleaningprice(IdPrice):
         try :
             db.session.delete(DeleteCleaningPrice)
             db.session.commit()
-            flash('Yes !! Service is deleted successfully '+ Happy , 'success')
+            flash('Yes !! Cleaning Services Price is deleted successfully '+ Happy , 'success')
             return redirect(url_for('cleaningprice.get_cleaningprice'))
         except Exception as err :
             flash('NA NA NA you can delete me. Try again ' + Sassy  , 'danger')
